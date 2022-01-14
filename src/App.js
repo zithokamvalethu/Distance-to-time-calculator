@@ -18,7 +18,16 @@ function DistanceToTimeCalculator() {
       driving: ((+ev.target.value * 60) / drivingSpeedPerHour).toFixed(2),
       flight: ((+ev.target.value * 60) / flightSpeedPerHour).toFixed(1),
     });
-
+  function timeConvert(n) {
+    var num = n;
+    var hours = num / 60;
+    var rhours = Math.floor(hours);
+    var minutes = (hours - rhours) * 60;
+    var rminutes = Math.round(minutes);
+    return (
+      rhours + " hour(s) and " + rminutes + " minute(s)."
+    );
+  }
   return (
     <form>
       <h1>DISTANCE TO TIME CALCULATOR</h1>
@@ -35,29 +44,24 @@ function DistanceToTimeCalculator() {
         </div>
 
         <div id="timeWalking">
-          Time In Hours&Minutes:
-          <input
-            type="number"
-            value={distance.walking}
-            onChange={updateValue}
-          ></input>
+          Walking Time In Hours&Minutes:
+          <button value={distance.walking} onChange={updateValue}>
+            <span>{timeConvert(distance.walking)}</span>
+          </button>
         </div>
 
         <div id="timeDriving">
-          Time In Hours&Minutes:
-          <input
-            type="number"
-            value={distance.driving}
-            onChange={updateValue}
-          ></input>
+          Driving Time In Hours&Minutes:
+          <button value={distance.driving} onChange={updateValue}>
+            {" "}
+            <span>{timeConvert(distance.driving)}</span>
+          </button>
         </div>
         <div id="timeFlying">
-          Time In Hours&Minutes:
-          <input
-            type="number"
-            value={distance.flight}
-            onChange={updateValue}
-          ></input>
+          Flying Time In Hours&Minutes:
+          <button value={distance.flight} onChange={updateValue}>
+            <span>{timeConvert(distance.flight)}</span>
+          </button>
         </div>
       </div>
     </form>
@@ -65,74 +69,3 @@ function DistanceToTimeCalculator() {
 }
 
 export default DistanceToTimeCalculator;
-//  constructor(props) {
-//     super(props);
-//     this.state = {
-//       time: [],
-//       walking: "",
-//       driving: "",
-//       flight: ""
-//     };
-//   }
-
-//    distance(distanceInKm) {
-//      var distanceInKm = [];
-//      var distance =""
-//     for (let i in distanceInKm) {
-//       distanceInKm.push("");
-//     }
-
-//     return distance;
-//   }
-//   updateMessage(event) {
-//     this.setState({
-//       distanceInKm: event.target.value,
-//     });
-//   }
-
-//     handleClick(event) {
-//       event.preventDefault();
-//       let distance = ""
-//       if (Number(this.state.walking) >= 3.6) {
-//         return distance / 3.6
-//       } if (Number(this.state.driving) >= 100) {
-//         return distance / 80
-
-//       } if (Number(this.state.flight) >= 800) {
-//         return distance / 800
-//       }
-//       this.setState({
-//         ...this.state,
-//         distance: [...this.state.distance, this.distance(+this.state.distanceInKm)],
-//       });
-//       this.setState({
-//         walking: "",
-//         driving: "",
-//         flight:""
-
-//       });
-
-//     }
-//     renderRows() {
-//       return this.state.distance.map(function (time) {
-//         return (
-//           <tr>
-//             <td>{time}</td>
-//           </tr>
-//         );
-//       });
-//     }
-
-//   render() {
-//     return (
-//       <div>
-//         <form onSubmit={this.handleClick.bind(this)}>
-//           <label>kilomtres</label>
-//           <input type="number" onChange={this.updateMessage.bind(this)} />
-
-//           <button type="submit">calculate distance</button>
-//         </form>
-
-//       </div>
-//     );
-//   }
